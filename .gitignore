@@ -1,3 +1,4 @@
 .env
-TD8/services/auth-service/vendor
+services/auth-service/vendor
+services/backend-service/vendor
 composer.lock
