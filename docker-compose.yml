@@ -1,0 +1,46 @@
+services:
+  auth-service:
+    build: ./services/auth-service
+    ports:
+      - "8081:80"
+    volumes:
+      - ./services/auth-service:/var/www/html
+
+  backend-service:
+    build: ./services/backend-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - auth-service
+    networks:
+      - app-network
+    volumes:
+      - ./services/backend-service:/var/www/html
+
+  frontend-service:
+    build: ./services/frontend-service
+    ports:
+      - "8080:80"
+    depends_on:
+      - auth-service
+      - backend-service
+      - login-service
+    networks:
+      - app-network
+    volumes:
+      - ./services/frontend-service:/usr/local/apache2/htdocs/
+
+  login-service:
+    build: ./services/login-service
+    ports:
+      - "3000:80"
+    depends_on:
+      - auth-service
+    networks:
+      - app-network
+    volumes:
+      - ./services/login-service:/usr/local/apache2/htdocs/
+
+networks:
+  app-network:
+    driver: bridge

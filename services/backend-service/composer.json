@@ -1,0 +1,19 @@
+{
+    "name": "myusername/data-service",
+    "description": "Service pour accéder aux données protégées",
+    "require": {
+        "php": "^8.0",
+        "firebase/php-jwt": "^6.0",
+        "vlucas/phpdotenv": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    }
+}
